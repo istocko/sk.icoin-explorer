@@ -1,0 +1,41 @@
+# Config file for Abe.
+dbtype MySQLdb
+connect-args {"user":"abe","db":"abe","passwd":"abe"}
+# Specify port and/or host to serve HTTP instead of FastCGI:
+port 2750
+host es-jan
+# "upgrade" tells Abe to upgrade database objects automatically after
+# code updates:
+upgrade
+
+# Add or replace object fields.  This example assumes connect-args
+# previously held an object such as { "user": "abe" }.
+#connect-args += { "passwd": "abe" }
+
+# If "policy" is not given in datadir, it defaults to the chain name,
+# but for new coins, a "policy" parameter is required.  Run
+# "python -m Abe.abe --list-policies" to see the possibilities, and
+# "python -m Abe.abe --show-policy POLICY" for information about
+# POLICY.  When in doubt, look for the name of a coin on which the new
+# coin is based, or a name suggestive of its distinctive features such
+# as proof-of-work hash algorithm.  If no policy works, see the
+# modules in Abe/Chain for examples.  Each module there implements a
+# policy.
+
+# New coins typically need a new "address_version", see doc/FAQ.html.
+
+datadir [{
+        "dirname": "/home/es-jan/.icoin"
+#	        "chain": "ICoin"
+#	"code3" : "ICN",
+#	"address_version": "0x30",
+#	"magic": "0xfbc0b6db",
+#	"decimals": 8,
+#	"conf" : "icoin.conf"
+      }]
+# Add transactions to the database.  The genesis transaction is
+# unavailable via RPC and must be specified to enable full loading
+# over RPC.  See Abe/genesis_tx.py.
+#import-tx += 010000000000000000000000000000000000000000000000000000000000000000000000d9ced4ed1130f7b7faad9be25323ffafa33232a17c3edf6cfd97bee6bafbdd97e264ed54f0ff0f1ec80e527c
+default-loader = blkfile
+
