@@ -1590,7 +1590,8 @@ store._ddl['txout_approx'],
               FROM chain_summary
              WHERE """ + ' AND '.join(where) + """
              ORDER BY
-                in_longest DESC,
+		block_nTime DESC,                
+		in_longest DESC,
                 chain_id DESC"""
         rows = store.selectall(sql, bind)
 
@@ -2189,6 +2190,7 @@ store._ddl['txout_approx'],
                    AND cc.in_longest = 1""" + ("" if max_rows < 0 else """
                  LIMIT ?"""),
                           (dbhash,)
+			#(dbhash + "aa",)
                           if max_rows < 0 else
                           (dbhash, max_rows + 1))
 
@@ -2363,6 +2365,7 @@ store._ddl['txout_approx'],
                    block_total_ss
               FROM block
              WHERE block_hash = ?
+		
         """, (store.hashin(hash),))
 
         if not block_row:
@@ -2378,8 +2381,8 @@ store._ddl['txout_approx'],
             "block_id":   block_row[0],
             "height":     block_row[1],
             "chain_work": store.binout_int(block_row[2]),
-            "nTime":      block_row[3],
-            "seconds":    block_row[4],
+            #"nTime":      block_row[3],
+            	#"seconds":    block_row[4],
             "satoshis":   block_row[5],
             "ss":         block_row[6],
             "total_ss":   block_row[7]}

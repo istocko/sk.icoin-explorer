@@ -1590,8 +1590,7 @@ store._ddl['txout_approx'],
               FROM chain_summary
              WHERE """ + ' AND '.join(where) + """
              ORDER BY
-		block_nTime DESC,                
-		in_longest DESC,
+                in_longest DESC,
                 chain_id DESC"""
         rows = store.selectall(sql, bind)
 
@@ -2189,8 +2188,7 @@ store._ddl['txout_approx'],
                  WHERE pubkey.pubkey_hash = ?
                    AND cc.in_longest = 1""" + ("" if max_rows < 0 else """
                  LIMIT ?"""),
-                          #(dbhash,)
-			(dbhash + "aa",)
+                          (dbhash,)
                           if max_rows < 0 else
                           (dbhash, max_rows + 1))
 
